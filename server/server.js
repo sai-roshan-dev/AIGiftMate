@@ -17,13 +17,13 @@ const PORT = process.env.PORT || 5000;
 // Allowed frontend origins
 const allowedOrigins = [
   'http://localhost:3000', // local React dev
-  'https://aigiftmate-client.onrender.com' // replace with your actual deployed client URL
+  'https://aigiftmate.vercel.app'
 ];
 
 // Middleware
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (e.g., Postman, mobile apps)
+    // Allow requests with no origin 
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
       const msg = 'CORS policy does not allow access from the specified Origin.';
