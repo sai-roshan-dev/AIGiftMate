@@ -1,0 +1,208 @@
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1f2937; /* --text-color */
+}
+
+.survey-container {
+  min-height: 100vh;
+  background-color: #f3f4f6; /* --muted-background-color */
+  padding: 3rem 1rem;
+}
+
+.survey-card-wrapper {
+  max-width: 42rem; /* --max-width-lg */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.survey-card {
+  background-color: #ffffff; /* --background-color */
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); /* --card-shadow */
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb; /* --border-color */
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.progress-bar {
+  height: 0.5rem;
+  background-color: #f3f4f6; /* --muted-background-color */
+  border-radius: 9999px;
+  margin-top: 1rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #3b82f6; /* --primary-color */
+  border-radius: 9999px;
+  transition: width 0.3s ease-in-out;
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.form-step {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+/* Radio Group and Checkbox Group Layouts */
+.radio-group-grid,
+.checkbox-group-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.radio-group-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.radio-item,
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.radio-item input[type="radio"],
+.checkbox-item input[type="checkbox"] {
+  accent-color: #3b82f6; /* --primary-color */
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb; /* --border-color */
+  border-radius: 0.375rem;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #3b82f6; /* --primary-color */
+}
+
+.form-textarea {
+  min-height: 7.5rem;
+}
+
+.budget-slider-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.budget-display {
+  font-weight: 500;
+}
+
+.budget-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #f3f4f6; /* --muted-background-color */
+  border-radius: 9999px;
+  height: 0.25rem;
+  outline: none;
+}
+
+.budget-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  background: #3b82f6; /* --primary-color */
+  border: 2px solid #ffffff; /* --primary-text-color */
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.budget-slider::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  background: #3b82f6; /* --primary-color */
+  border: 2px solid #ffffff; /* --primary-text-color */
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.budget-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: #6b7280; /* --muted-text-color */
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #e5e7eb; /* --border-color */
+  padding: 1rem 1.5rem;
+}
+
+.nav-button {
+  background-color: #3b82f6; /* --primary-color */
+  color: #ffffff; /* --primary-text-color */
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-button:hover {
+  background-color: #2563eb; /* --primary-dark-color */
+}
+
+.nav-button-ghost {
+  background-color: transparent;
+  color: #6b7280; /* --muted-text-color */
+  border-color: transparent;
+}
+
+.nav-button-ghost:hover {
+  background-color: #e5e7eb; /* --border-color */
+  color: #1f2937; /* --text-color */
+}
+
+.nav-button:disabled,
+.nav-button[disabled] {
+  background-color: #d1d5db;
+  color: #6b7280; /* --muted-text-color */
+  cursor: not-allowed;
+}
+
+@media (min-width: 640px) {
+  .radio-group-grid-3 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

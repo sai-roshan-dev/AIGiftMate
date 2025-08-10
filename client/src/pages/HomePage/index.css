@@ -1,0 +1,351 @@
+/* Body and container */
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1f2937;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+.homepage-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Center text where needed */
+.text-center {
+  text-align: center;
+}
+
+/* Hero Section */
+.hero-section {
+  padding: 5rem 0;
+  background: linear-gradient(to bottom, #ffffff, #f3f4f6);
+}
+
+/* Hero Title with logo Title Style */
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color), var(--primary-hover));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  animation: gradientShift 4s ease-in-out infinite, fadeInUp 0.8s ease-out;
+  position: relative;
+  text-align: center; /* optional, remove if unnecessary */
+}
+
+.hero-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+/* Animations used */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive font sizes */
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1rem;
+  }
+}
+
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: #6b7280;
+  margin-bottom: 2.5rem;
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CTA Buttons */
+.cta-button {
+  background-color: #3b82f6;
+  color: #ffffff;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: inline-block;
+}
+
+.cta-button:hover {
+  background-color: #2563eb;
+}
+
+.cta-button--large {
+  font-size: 1.125rem;
+  padding: 1rem 2rem;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+  padding: 4rem 0;
+  background-color: #ffffff;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #1f2937;
+}
+
+.grid-3-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .grid-3-col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Cards inside How It Works */
+.card {
+  background-color: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(59, 130, 246, 0.1);
+  transition: border-color 0.2s ease;
+}
+
+.card:hover {
+  border-color: #3b82f6;
+}
+
+.card-header {
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #1f2937;
+}
+
+.step-number {
+  background-color: #3b82f6;
+  color: #ffffff;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.step-title {
+  font-size: 1.125rem;
+  color: #3b82f6 ;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+.card-content {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+/* Featured Categories Section */
+.featured-categories-section {
+  padding: 4rem 0;
+  background-color: #f3f4f6;
+}
+
+.grid-4-col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid-4-col {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.category-card {
+  background-color: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  text-align: center;
+}
+
+.category-card:hover {
+  border-color: #3b82f6;
+}
+
+.category-card-content {
+  padding: 1rem;
+}
+
+.category-title {
+  font-weight: 500;
+  font-size: 1.125rem;
+  color: #1f2937;
+  transition: color 0.2s ease;
+}
+
+.category-card:hover .category-title {
+  color: #3b82f6;
+}
+
+/* CTA Banner Section */
+.cta-banner-section {
+  padding: 4rem 0;
+  background-color: #ffffff;
+}
+
+.cta-banner {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.cta-banner-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.cta-banner-text {
+  font-size: 1.25rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
+/* Responsive grids */
+.grid-3-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .grid-3-col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid-4-col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .grid-4-col {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Text scaling on larger screens */
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  .hero-subtitle {
+    font-size: 1.5rem;
+  }
+  .section-title {
+    font-size: 2.5rem;
+  }
+  .cta-banner-title {
+    font-size: 2.5rem;
+  }
+}
+
+/* Container padding adjustments for small screens */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+
+  .cta-button,
+  .cta-button--large {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.125rem;
+  }
+
+  .category-card {
+    height: auto;
+    padding: 1.5rem 0;
+  }
+}
+
+/* Make buttons and interactive elements easy to tap on small screens */
+button, .cta-button {
+  min-height: 44px;
+  font-size: 1rem;
+}

@@ -1,0 +1,184 @@
+/* Styling for the reusable GiftCard component */
+.gift-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  padding: 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  text-align: left; /* Ensure text aligns left within the card */
+  /* Reset button styles */
+  font-family: inherit;
+  font-size: 1rem;
+  color: inherit;
+}
+
+/* Hover effect removed */
+/* 
+.gift-card:hover {
+  border-color: #3b82f6;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px -3px rgba(0,0,0,0.15), 0 4px 6px -2px rgba(0,0,0,0.05);
+}
+*/
+
+/* Also remove image scale on hover */
+/*
+.gift-card:hover .gift-card-image {
+  transform: scale(1.02);
+}
+*/
+
+/* Styles for unmatched gift cards */
+.unmatched-gift-card {
+  border-color: #f59e0b;
+  background-color: rgba(245, 158, 11, 0.05); /* Light orange background */
+}
+
+.unmatched-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(245, 158, 11, 0.8); /* Semi-transparent orange */
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  text-align: center;
+  z-index: 10;
+}
+
+.gift-card-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.gift-card-description {
+  color: var(--muted-text-color);
+  margin-bottom: 0.75rem;
+}
+
+.gift-card-details {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.gift-card-price {
+  font-weight: bold;
+  color: #3b82f6;
+}
+
+.gift-card-category {
+  background-color: #f3f4f6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.gift-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease-in-out;
+  /* No scale on hover now */
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 200px;
+  background-color: #f5f5f5;
+  color: #666;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.gift-card-reason {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--muted-text-color);
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.save-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  transition: background-color 0.2s, opacity 0.2s, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  margin-top: auto; /* Push to the bottom of the card */
+  cursor: pointer;
+}
+
+.save-button:hover:not(:disabled) {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.save-button.saved {
+  background-color: #22c55e;
+  cursor: default;
+  opacity: 0.8;
+}
+
+.save-button:disabled {
+  background-color: #d1d5db;
+  color: #6b7280;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.delete-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  background-color: #ef4444;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 0.2s, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+  z-index: 5;
+  white-space: nowrap;
+}
+
+.delete-button:hover {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}

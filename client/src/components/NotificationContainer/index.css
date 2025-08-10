@@ -1,0 +1,67 @@
+.notification-container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 9999;
+}
+
+.notification-toast {
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  color: #ffffff; /* var(--primary-text-color) */
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.2);
+  font-family: 'Inter', sans-serif; /* var(--font-family) */
+  animation: slideInUp 0.3s ease forwards;
+  cursor: default;
+  user-select: none;
+  border: 1.5px solid transparent;
+}
+
+/* Animation slides up from below */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Variants */
+.notification-toast-success {
+  background-color: #16a34a;
+  border-color: #15803d;
+}
+
+.notification-toast-error {
+  background-color: #dc2626;
+  border-color: #b91c1c;
+}
+
+.notification-toast-info {
+  background-color: #3b82f6; /* var(--primary-color) */
+  border-color: #2563eb;
+}
+
+.notification-toast-warning {
+  background-color: #facc15;
+  border-color: #ca8a04;
+  color: #f1f2f4;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .notification-container {
+    max-width: 90vw;
+    right: 0.5rem;
+    left: 0.5rem;
+    bottom: 0.5rem;
+  }
+}

@@ -1,0 +1,134 @@
+/* Container around the whole trending gifts carousel */
+.trending-gifts-carousel {
+  padding: 2rem 1rem;
+  background-color: #f9f9f9;
+  width: 100vw;     /* full viewport width */
+  max-width: 100%;  /* no max-width limit */
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Inner container for better layout control */
+.inner-gift-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 1200px; /* optionally constrain inner content width */
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* TrendingGift Title with logo Title Style */
+.inner-gift-heading h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color), var(--primary-hover));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  animation: gradientShift 4s ease-in-out infinite, fadeInUp 0.8s ease-out;
+  position: relative;
+  text-align: center; /* keep centered */
+}
+
+.inner-gift-heading h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+/* Animations used */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive font sizes */
+@media (max-width: 1024px) {
+  .inner-gift-heading h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .inner-gift-heading h1 {
+    font-size: 2.0rem;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 480px) {
+  .inner-gift-heading h1 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Each slide wrapper */
+.trending-gift {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 180px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 10px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+/* Zoom effect on hover */
+.trending-gift:hover {
+  transform: scale(1.05);
+}
+
+/* Inner gift container */
+.trending-inner-gift {
+  width: 100%;
+}
+
+/* Image inside each slide */
+.gift-image {
+  width: 100%;          /* full width */
+  height: auto;         /* keep aspect ratio */
+  object-fit: contain;  /* no cropping */
+  border-radius: 6px;
+  user-select: none;
+  pointer-events: none;
+  display: block;
+  max-height: 220px;
+  margin: 0 auto;
+}
+
+/* Gift name below the image */
+.gift-name {
+  margin-top: 0.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  color: #333;
+  user-select: none;
+}
