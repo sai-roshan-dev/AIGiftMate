@@ -138,9 +138,7 @@ export async function generateGiftRecommendations(surveyData) {
 
   try {
     const prompt = `
-You are a Indian Style gift recommendation expert. Based on the following information about a gift recipient,
-generate 8 personalized gift recommendations. Focus on common, purchasable items available in Indian online stores (Flipkart, Amazon India) or local markets.
-The response should be in a strict JSON array format, with no introductory text or explanations.
+You are an expert gift recommender specializing in personalized, practical gifts. Based on the following recipient details, generate exactly 8 unique and thoughtful gift recommendations. Each gift should be a common, purchasable item readily available on popular online stores or local markets.
 
 Recipient details:
 - Age: ${surveyData.age}
@@ -152,26 +150,78 @@ Recipient details:
 - Budget: ₹${surveyData.budget[0]}
 - Additional Info: ${surveyData.additionalInfo || "None"}
 
-For each gift, provide a JSON object with the following fields exactly:
-
+Requirements for each gift recommendation (as a JSON object):
 {
-  "name": string,
-  "description": string,
-  "approximatePrice": number,
-  "category": string,
-  "reason": string,
-  "imageSearchQuery": string
+  "name": string,               // Gift name/title
+  "description": string,        // Brief description highlighting its relevance
+  "approximatePrice": number,   // Estimated price in INR, not exceeding the budget
+  "category": string,           // Gift category (e.g., Electronics, Apparel, Books, Home Decor)
+  "reason": string,             // Why this gift suits the recipient
+  "imageSearchQuery": string    // A precise keyword phrase optimized for image search APIs like Unsplash, e.g. "black leather wallet product" or "wireless noise cancelling headphones gadget mainly focusing on product images only.,Include words like "product", "isolated", "studio shot", "on white background", and exclude any references to people."
 }
 
 Constraints:
-- Only suggest practical, commonly purchasable gifts relevant to Indian culture and occasions.
-- Do not suggest exotic or unavailable items.
-- Price must never exceed the budget.
-- Output only the JSON array of 8 gifts, no extra text.
+- Only suggest practical, commonly purchasable gifts relevant to the recipient.
+- Avoid exotic, rare, or unavailable items.
+- Ensure the approximatePrice does not exceed the specified budget.
+- Provide diverse gift categories to cover varied interests.
+- Output ONLY a JSON array of 8 gift objects with no extra text, explanation, or formatting.
+-The "imageSearchQuery" should be a concise, precise phrase that will return relevant product images from image search APIs (like Unsplash). Include product type, key descriptors (color, style), and words like "product" or "gift" if helpful , avoid generic terms like "gift" or "item" alone and Avoid queries that might return images with persons or lifestyle shots.
 
-Generate the JSON array of 8 gifts now.
-(Do not use bullet points or numbering)
+Example response format (do not include this example in your output):
+
+[
+  {
+    "name": "Noise Cancelling Headphones",
+    "description": "Wireless over-ear headphones that block external noise, ideal for someone who loves music and travels frequently.",
+    "approximatePrice": 3500,
+    "category": "Electronics",
+    "reason": "Perfect for enhancing their music experience and reducing travel stress.",
+    "imageSearchQuery": "wireless noise cancelling headphones"
+  },
+  {
+    "name": "Classic Leather Wallet",
+    "description": "A durable and stylish leather wallet with multiple compartments.",
+    "approximatePrice": 1200,
+    "category": "Accessories",
+    "reason": "A practical everyday essential that suits their personality.",
+    "imageSearchQuery": "classic leather wallet"
+  },
+  {
+    "name": "Fitness Tracker Watch",
+    "description": "A lightweight fitness tracker that monitors steps, heart rate, and sleep patterns.",
+    "approximatePrice": 2500,
+    "category": "Electronics",
+    "reason": "Great for health-conscious individuals aiming to track their fitness goals.",
+    "imageSearchQuery": "fitness tracker watch product isolated on white background"
+  }, {
+    "name": "Classic Teddy Bear",
+    "description": "A soft, cuddly teddy bear perfect for gifting to children or loved ones on special occasions.",
+    "approximatePrice": 700,
+    "category": "Toys & Gifts",
+    "reason": "A timeless gift that brings comfort and joy, suitable for all ages.",
+    "imageSearchQuery": "classic teddy bear product isolated studio shot"
+  },{
+    "name": "Personalized Coffee Mug",
+    "description": "A ceramic coffee mug customized with the recipient's name or a special message.",
+    "approximatePrice": 350,
+    "category": "Kitchenware",
+    "reason": "Adds a personal touch to their daily coffee routine.",
+    "imageSearchQuery": "personalized coffee mug product isolated on white background"
+  },{
+    "name": "Aromatic Scented Candles Set",
+    "description": "A set of beautifully scented candles to create a relaxing ambiance at home.",
+    "approximatePrice": 900,
+    "category": "Home Decor",
+    "reason": "Perfect for those who enjoy calm and cozy environments.",
+    "imageSearchQuery": "scented candles set product isolated studio shot"
+  },
+  // 2 more gift objects...
+]
+
+Generate the JSON array of 8 gifts .
 `;
+
 
     console.log("[generateGiftRecommendations] Calling Gemini API for recommendations...");
     const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];

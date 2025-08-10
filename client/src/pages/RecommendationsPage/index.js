@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
 import { useSurvey } from '../../context/SurveyContext';
@@ -13,13 +13,15 @@ const RecommendationsPage = () => {
   const { addNotification } = useNotification();
 
   const [allRecommendations, setAllRecommendations] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(true);
+  const [isLoadingSavedGifts, setIsLoadingSavedGifts] = useState(true);
   const [error, setError] = useState(null);
   const [savedGiftIds, setSavedGiftIds] = useState(new Set());
   const [savingGiftIds, setSavingGiftIds] = useState(new Set());
 
   const hasFetchedRecommendations = useRef(false);
   const savingInProgress = useRef(new Set());
+  const firstRender = useRef(true);
 
   // Redirect to survey if no survey data
   useEffect(() => {
@@ -28,78 +30,100 @@ const RecommendationsPage = () => {
     }
   }, [surveyData, navigate]);
 
+  // Clear cache only when surveyData changes AFTER first render
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return; // Skip on initial mount
+    }
+    localStorage.removeItem('allRecommendations');
+    hasFetchedRecommendations.current = false;
+  }, [surveyData]);
+
+  // Reset saving state on logout
+  useEffect(() => {
+    if (!isLoggedIn) {
+      savingInProgress.current.clear();
+      setSavingGiftIds(new Set());
+      setSavedGiftIds(new Set());
+    }
+  }, [isLoggedIn]);
+
   useEffect(() => {
     if (hasFetchedRecommendations.current) return;
-
-    // Try to load cached recommendations from localStorage
-    const cached = localStorage.getItem('allRecommendations');
-    if (cached) {
-      setAllRecommendations(JSON.parse(cached));
-      setIsLoading(false);
-      hasFetchedRecommendations.current = true;
-      return;
-    }
 
     hasFetchedRecommendations.current = true;
 
     const fetchRecommendations = async () => {
-      setIsLoading(true);
+      setIsLoadingRecommendations(true);
       setError(null);
+
+      // Try to load cached recommendations first
+      const cached = localStorage.getItem('allRecommendations');
+      if (cached) {
+        try {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed)) {
+            setAllRecommendations(parsed);
+            setIsLoadingRecommendations(false);
+            return;
+          }
+        } catch {
+          // Ignore parse error and fetch fresh data
+        }
+      }
+
       try {
-        const response = await fetch('http://localhost:5000/api/recommendations', {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/recommendations`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ surveyData }),
         });
 
-        if (!response.ok) {
-          const errorData = await response.json();
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
           throw new Error(errorData.message || 'Failed to fetch recommendations');
         }
 
-        const data = await response.json();
+        const data = await res.json();
         setAllRecommendations(data.recommendations);
-
-        // Save to localStorage cache
         localStorage.setItem('allRecommendations', JSON.stringify(data.recommendations));
-      } catch (err) {
-        setError('Failed to fetch recommendations. Please try again.');
-        addNotification(err.message || 'Error fetching recommendations.', 'error');
+      } catch (fetchErr) {
+        console.error('Recommendation fetch error:', fetchErr);
+        setError(fetchErr.message || 'Failed to fetch recommendations. Please try again.');
+        addNotification(fetchErr.message || 'Error fetching recommendations.', 'error');
       } finally {
-        setIsLoading(false);
+        setIsLoadingRecommendations(false);
       }
     };
 
     const fetchUserSavedGifts = async () => {
-      if (!isLoggedIn || !token) return;
+      if (!isLoggedIn || !token) {
+        setIsLoadingSavedGifts(false);
+        return;
+      }
+      setIsLoadingSavedGifts(true);
       try {
-        const response = await fetch('http://localhost:5000/api/gifts', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        const res = await fetch('http://localhost:5000/api/gifts', {
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        if (response.ok) {
-          const data = await response.json();
+        if (res.ok) {
+          const data = await res.json();
           const ids = new Set(data.map(gift => gift._id || gift.id));
           setSavedGiftIds(ids);
         }
       } catch (err) {
         console.error('Error fetching user saved gifts:', err);
+      } finally {
+        setIsLoadingSavedGifts(false);
       }
     };
 
+    // Fetch both in parallel
     fetchRecommendations();
     fetchUserSavedGifts();
   }, [surveyData, isLoggedIn, token, addNotification]);
-
-  // Clear cache if surveyData changes (e.g., user retakes survey)
-  useEffect(() => {
-    localStorage.removeItem('allRecommendations');
-    hasFetchedRecommendations.current = false;
-  }, [surveyData]);
 
   const handleSaveGift = useCallback(
     async (gift) => {
@@ -119,7 +143,6 @@ const RecommendationsPage = () => {
       savingInProgress.current.add(giftId);
       setSavingGiftIds(new Set(savingInProgress.current));
 
-      // Optimistically update savedGiftIds to prevent multiple saves
       let optimisticallySaved = false;
       setSavedGiftIds((prev) => {
         const updated = new Set(prev);
@@ -131,7 +154,7 @@ const RecommendationsPage = () => {
       });
 
       try {
-        const response = await fetch('http://localhost:5000/api/gifts', {
+        const res = await fetch('http://localhost:5000/api/gifts', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -140,20 +163,20 @@ const RecommendationsPage = () => {
           body: JSON.stringify(gift),
         });
 
-        if (response.status === 401) {
+        if (res.status === 401) {
           addNotification('Session expired. Please log in again.', 'error');
           navigate('/login');
           return;
         }
 
-        if (!response.ok) {
-          const errorData = await response.json();
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
           throw new Error(errorData.message || 'Failed to save gift');
         }
 
         addNotification('Gift saved successfully!', 'success');
       } catch (err) {
-        // Rollback optimistic save
+        console.error('Gift save error:', err);
         if (optimisticallySaved) {
           setSavedGiftIds((prev) => {
             const updated = new Set(prev);
@@ -170,8 +193,7 @@ const RecommendationsPage = () => {
     [isLoggedIn, token, navigate, addNotification, savedGiftIds]
   );
 
-  const savedGiftIdList = useMemo(() => new Set(savedGiftIds), [savedGiftIds]);
-  const savingGiftIdList = useMemo(() => new Set(savingGiftIds), [savingGiftIds]);
+  const isLoading = isLoadingRecommendations || isLoadingSavedGifts;
 
   return (
     <div className="recommendations-page">
@@ -191,8 +213,8 @@ const RecommendationsPage = () => {
                   key={gift.id || gift._id}
                   gift={gift}
                   onSave={handleSaveGift}
-                  isSaved={savedGiftIdList.has(gift.id || gift._id)}
-                  isSaving={savingGiftIdList.has(gift.id || gift._id)}
+                  isSaved={savedGiftIds.has(gift.id || gift._id)}
+                  isSaving={savingGiftIds.has(gift.id || gift._id)}
                   isUnmatched={!gift.isCatalogMatch}
                 />
               ))

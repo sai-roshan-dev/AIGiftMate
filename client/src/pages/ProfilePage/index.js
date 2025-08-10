@@ -22,7 +22,7 @@ const ProfilePage = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch('http://localhost:5000/api/users/profile', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },

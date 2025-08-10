@@ -28,7 +28,7 @@ const AdminDashboardPage = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const usersResponse = await fetch('http://localhost:5000/api/admin/users', {
+        const usersResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -39,7 +39,7 @@ const AdminDashboardPage = () => {
         }
         const usersData = await usersResponse.json();
 
-        const statsResponse = await fetch('http://localhost:5000/api/admin/stats', {
+        const statsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/admin/stats`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
