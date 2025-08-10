@@ -68,3 +68,143 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+# AIGiftMate: Your AI-Powered Gift Recommendation Platform
+
+AIGiftMate is a full-stack web application designed to take the stress out of gift-giving. Using the power of Google's Gemini AI, the platform provides personalized, thoughtful gift recommendations based on a user-friendly survey about the recipient.
+
+Find the perfect gift effortlessly with AIGiftMate. Our platform ensures every visitor leaves with personalized gift solutions tailored to their recipient’s preferences. Explore trending gifts curated for inspiration, and benefit from our rich product database that powers AI-driven, survey-based recommendations — making gift-giving simple, thoughtful, and stress-free.
+
+The project is built on the **MERN (MongoDB, Express, React, Node.js)** stack, demonstrating a robust, modular, and scalable architecture.
+
+---
+
+## Live Demo
+
+Check out the live application here:  
+[https://aigiftmate.vercel.app](https://aigiftmate.vercel.app)
+
+## Repository Link
+
+Source code is available on GitHub:  
+[https://github.com/sai-roshan-dev/AIGiftMate.git](https://github.com/sai-roshan-dev/AIGiftMate.git)
+
+---
+
+## Key Features 🎁
+
+- **Personalized AI Recommendations:** Utilizes the **Gemini AI** to generate unique gift ideas based on a recipient's interests, personality, and budget.
+- **Full-Stack Architecture:** A clear separation of concerns between a React frontend and a Node.js/Express backend.
+- **User Authentication:** Secure user registration and login system with **JSON Web Tokens (JWT)** and **MongoDB** for data persistence.
+- **Product Catalog Integration:** Recommendations are enriched with real product details (images, prices) from a **MongoDB database** that is seeded with local mock data.
+- **User Wishlist:** Logged-in users can save their favorite gift ideas to a personal wishlist, with the data stored securely in the database.
+- **Admin Dashboard:** A protected admin route allows for viewing user and platform statistics.
+- **Responsive & Intuitive UI:** The application is designed to be user-friendly and visually appealing on all devices.
+- **Unsplash Image Integration:** Gift recommendations include beautiful product images fetched from the **Unsplash API** for enhanced user experience.
+- **Trending Gifts Page:** Features a curated and dynamic carousel of popular gift ideas powered **react-splide** for a smooth browsing experience.
+---
+
+## Technologies Used 💻
+
+**Frontend:**
+
+- React — For building a dynamic and responsive user interface.
+- React Router DOM — For client-side routing.
+- HTML5 & CSS3 — For structuring and styling.
+- React Splide  — For creating responsive, touch-friendly carousels/sliders on the Trending Gifts page.
+- React Icons  — For using a wide range of customizable icons to enhance the user interface.
+
+**Backend:**
+
+- Node.js & Express — RESTful API backend.
+- MongoDB & Mongoose — NoSQL database and ORM.
+- Google Gemini API — AI engine for generating recommendations.
+- Unsplash API — To fetch product images dynamically.
+
+**Deployment:**
+
+- Render — For backend and database hosting.
+- Vercel — For frontend hosting.
+
+---
+
+## Server Startup
+
+The server listens on the configured port (default 5000) and connects to MongoDB at startup. Middleware includes CORS setup to allow requests from your frontend domain.
+
+Run the backend server with:
+
+```bash
+npm start
+```
+
+You should see a console message like:
+
+```bash
+Server is running on http://localhost:5000
+```
+
+---
+
+## How to Run the Project Locally ⚙️
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/sai-roshan-dev/AIGiftMate.git
+cd AIGiftMate
+```
+
+### 2. Backend Setup
+
+```bash
+cd server
+npm install
+```
+
+* Create a `.env` file in the `server` directory and add your environment variables:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+GEMINI_API_KEY=your_gemini_api_key
+JWT_SECRET=a_strong_secret_key
+UNSPLASH_ACCESS_KEY=your_unsplash_api_key
+```
+
+* Seed the database with product mock data (optional):
+
+```bash
+node scripts/seedProducts.js
+```
+
+* Start the backend server:
+
+```bash
+npm start
+```
+
+### 3. Frontend Setup
+
+Open a **new terminal** window:
+
+```bash
+cd ../client
+npm install
+npm start
+```
+
+Your React app will be running on [http://localhost:3000](http://localhost:3000).
+
+---
+
+## Deployment 🚀
+
+* **Backend & Database:** Deploy on **Render**. Set environment variables in the Render dashboard.
+* **Frontend:** Deploy on **Vercel**. Configure the backend API URL in your React environment variables.
+
+---
+
+Thank you for checking out **AIGiftMate**!  
+
+Happy gifting! 🎁✨
