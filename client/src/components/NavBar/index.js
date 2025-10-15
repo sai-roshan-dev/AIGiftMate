@@ -24,7 +24,6 @@ const NavBar = () => {
       <div className="container nav-content">
         <Link to="/" className="logo-link" onClick={() => setMenuOpen(false)}>
           AIGiftMate
-          
         </Link>
 
         {/* Hamburger toggle visible on medium/below */}
@@ -170,7 +169,7 @@ const NavBar = () => {
                 <li>
                   <Link
                     to="/register"
-                    className="nav-button nav-link-button"
+                    className="nav-button nav-link-button nav-color"
                     onClick={() => setMenuOpen(false)}
                   >
                     Register

@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import './index.css';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="app-footer">
       <div className="container footer-content">
-        <p className="footer-text">© 2025 AIGiftMate. All rights reserved.</p>
+        <p className="footer-text">© {currentYear} AIGiftMate. All rights reserved.</p>
         <div className="footer-links">
           <Link to="/terms" className="footer-link">Terms</Link>
           <Link to="/privacy" className="footer-link">Privacy</Link>
